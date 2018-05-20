@@ -1,0 +1,375 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="MatusTestingAssignmentModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="DbStatus_lu">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Description" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+    <Property Name="CreatedBy" Type="int" Nullable="false" />
+    <Property Name="UpdatedDate" Type="datetime" />
+    <Property Name="UpdatedBy" Type="int" />
+  </EntityType>
+  <EntityType Name="Invoice">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Status" Type="bit" Nullable="false" />
+    <Property Name="TotalVAT" Type="numeric" Precision="16" Scale="2" />
+    <Property Name="TotalPrice" Type="numeric" Precision="16" Scale="2" />
+    <Property Name="CompanyName" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="CompanyAddress" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="CompanyState" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="CompanyCountry" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="ClientName" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="ClientAddress" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="ClientState" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="ClientCountry" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="DbStatus" Type="int" Nullable="false" />
+    <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+    <Property Name="CreatedBy" Type="int" Nullable="false" />
+    <Property Name="UpdatedDate" Type="datetime" />
+    <Property Name="UpdatedBy" Type="int" />
+  </EntityType>
+  <EntityType Name="InvoiceItem">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="InvoiceId" Type="int" Nullable="false" />
+    <Property Name="Description" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Quantity" Type="int" Nullable="false" />
+    <Property Name="UnitPrice" Type="numeric" Precision="16" Scale="2" Nullable="false" />
+    <Property Name="PercentageVAT" Type="int" Nullable="false" />
+    <Property Name="AmountVAT" Type="numeric" Precision="16" Scale="2" Nullable="false" />
+    <Property Name="TotalPrice" Type="numeric" Precision="16" Scale="2" />
+    <Property Name="DbStatus" Type="int" Nullable="false" />
+    <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+    <Property Name="CreatedBy" Type="int" Nullable="false" />
+    <Property Name="UpdatedDate" Type="datetime" />
+    <Property Name="UpdatedBy" Type="int" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FirstName" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="LastName" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="PasswordHash" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Email" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="DbStatus" Type="int" Nullable="false" />
+    <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+    <Property Name="CreatedBy" Type="int" Nullable="false" />
+    <Property Name="UpdatedDate" Type="datetime" />
+    <Property Name="UpdatedBy" Type="int" />
+  </EntityType>
+  <EntityType Name="UserLoginHistory">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserId" Type="int" Nullable="false" />
+    <Property Name="LastLogin" Type="datetime" Nullable="false" />
+    <Property Name="DbStatus" Type="int" Nullable="false" />
+    <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+    <Property Name="CreatedBy" Type="int" Nullable="false" />
+    <Property Name="UpdatedDate" Type="datetime" />
+    <Property Name="UpdatedBy" Type="int" />
+  </EntityType>
+  <EntityType Name="UserTokenHistory">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserId" Type="int" Nullable="false" />
+    <Property Name="Token" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+    <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+    <Property Name="CreatedBy" Type="int" Nullable="false" />
+    <Property Name="UpdatedDate" Type="datetime" />
+    <Property Name="UpdatedBy" Type="int" />
+  </EntityType>
+  <Association Name="FK_DbStatus_lu_CreatedBy_REF_User">
+    <End Role="User" Type="Self.User" Multiplicity="1" />
+    <End Role="DbStatus_lu" Type="Self.DbStatus_lu" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="DbStatus_lu">
+        <PropertyRef Name="CreatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DbStatus_lu_UpdatedBy_REF_User">
+    <End Role="User" Type="Self.User" Multiplicity="0..1" />
+    <End Role="DbStatus_lu" Type="Self.DbStatus_lu" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="DbStatus_lu">
+        <PropertyRef Name="UpdatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Invoice_CreatedBy_REF_User">
+    <End Role="User" Type="Self.User" Multiplicity="1" />
+    <End Role="Invoice" Type="Self.Invoice" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Invoice">
+        <PropertyRef Name="CreatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Invoice_DbStatus_REF_DbStatus_lu">
+    <End Role="DbStatus_lu" Type="Self.DbStatus_lu" Multiplicity="1" />
+    <End Role="Invoice" Type="Self.Invoice" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DbStatus_lu">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Invoice">
+        <PropertyRef Name="DbStatus" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Invoice_UpdatedBy_REF_User">
+    <End Role="User" Type="Self.User" Multiplicity="0..1" />
+    <End Role="Invoice" Type="Self.Invoice" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Invoice">
+        <PropertyRef Name="UpdatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_InvoiceItem_CreatedBy_REF_User">
+    <End Role="User" Type="Self.User" Multiplicity="1" />
+    <End Role="InvoiceItem" Type="Self.InvoiceItem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="InvoiceItem">
+        <PropertyRef Name="CreatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_InvoiceItem_DbStatus_lu_REF_Invoice">
+    <End Role="DbStatus_lu" Type="Self.DbStatus_lu" Multiplicity="1" />
+    <End Role="InvoiceItem" Type="Self.InvoiceItem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DbStatus_lu">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="InvoiceItem">
+        <PropertyRef Name="DbStatus" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_InvoiceItem_InvoiceId_REF_Invoice">
+    <End Role="Invoice" Type="Self.Invoice" Multiplicity="1" />
+    <End Role="InvoiceItem" Type="Self.InvoiceItem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Invoice">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="InvoiceItem">
+        <PropertyRef Name="InvoiceId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_InvoiceItem_UpdatedBy_REF_User">
+    <End Role="User" Type="Self.User" Multiplicity="0..1" />
+    <End Role="InvoiceItem" Type="Self.InvoiceItem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="InvoiceItem">
+        <PropertyRef Name="UpdatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_User_CreatedBy_REF_User">
+    <End Role="User" Type="Self.User" Multiplicity="1" />
+    <End Role="User1" Type="Self.User" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="User1">
+        <PropertyRef Name="CreatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_User_UpdatedBy_REF_User">
+    <End Role="User" Type="Self.User" Multiplicity="0..1" />
+    <End Role="User1" Type="Self.User" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="User1">
+        <PropertyRef Name="UpdatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserLoginHistory_CreatedBy_REF_User">
+    <End Role="User" Type="Self.User" Multiplicity="1" />
+    <End Role="UserLoginHistory" Type="Self.UserLoginHistory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="UserLoginHistory">
+        <PropertyRef Name="CreatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserLoginHistory_DbStatus_REF_DbStatus_lu">
+    <End Role="DbStatus_lu" Type="Self.DbStatus_lu" Multiplicity="1" />
+    <End Role="UserLoginHistory" Type="Self.UserLoginHistory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DbStatus_lu">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="UserLoginHistory">
+        <PropertyRef Name="DbStatus" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserLoginHistory_UpdatedBy_REF_User">
+    <End Role="User" Type="Self.User" Multiplicity="0..1" />
+    <End Role="UserLoginHistory" Type="Self.UserLoginHistory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="UserLoginHistory">
+        <PropertyRef Name="UpdatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserLoginHistory_UserId_REF_User">
+    <End Role="User" Type="Self.User" Multiplicity="1" />
+    <End Role="UserLoginHistory" Type="Self.UserLoginHistory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="UserLoginHistory">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserTokenHistory_CreatedBy_REF_User">
+    <End Role="User" Type="Self.User" Multiplicity="1" />
+    <End Role="UserTokenHistory" Type="Self.UserTokenHistory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="UserTokenHistory">
+        <PropertyRef Name="CreatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserTokenHistory_UpdatedBy_REF_User">
+    <End Role="User" Type="Self.User" Multiplicity="0..1" />
+    <End Role="UserTokenHistory" Type="Self.UserTokenHistory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="UserTokenHistory">
+        <PropertyRef Name="UpdatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="MatusTestingAssignmentModelStoreContainer">
+    <EntitySet Name="DbStatus_lu" EntityType="Self.DbStatus_lu" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Invoice" EntityType="Self.Invoice" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="InvoiceItem" EntityType="Self.InvoiceItem" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UserLoginHistory" EntityType="Self.UserLoginHistory" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UserTokenHistory" EntityType="Self.UserTokenHistory" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_DbStatus_lu_CreatedBy_REF_User" Association="Self.FK_DbStatus_lu_CreatedBy_REF_User">
+      <End Role="User" EntitySet="User" />
+      <End Role="DbStatus_lu" EntitySet="DbStatus_lu" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DbStatus_lu_UpdatedBy_REF_User" Association="Self.FK_DbStatus_lu_UpdatedBy_REF_User">
+      <End Role="User" EntitySet="User" />
+      <End Role="DbStatus_lu" EntitySet="DbStatus_lu" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Invoice_CreatedBy_REF_User" Association="Self.FK_Invoice_CreatedBy_REF_User">
+      <End Role="User" EntitySet="User" />
+      <End Role="Invoice" EntitySet="Invoice" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Invoice_DbStatus_REF_DbStatus_lu" Association="Self.FK_Invoice_DbStatus_REF_DbStatus_lu">
+      <End Role="DbStatus_lu" EntitySet="DbStatus_lu" />
+      <End Role="Invoice" EntitySet="Invoice" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Invoice_UpdatedBy_REF_User" Association="Self.FK_Invoice_UpdatedBy_REF_User">
+      <End Role="User" EntitySet="User" />
+      <End Role="Invoice" EntitySet="Invoice" />
+    </AssociationSet>
+    <AssociationSet Name="FK_InvoiceItem_CreatedBy_REF_User" Association="Self.FK_InvoiceItem_CreatedBy_REF_User">
+      <End Role="User" EntitySet="User" />
+      <End Role="InvoiceItem" EntitySet="InvoiceItem" />
+    </AssociationSet>
+    <AssociationSet Name="FK_InvoiceItem_DbStatus_lu_REF_Invoice" Association="Self.FK_InvoiceItem_DbStatus_lu_REF_Invoice">
+      <End Role="DbStatus_lu" EntitySet="DbStatus_lu" />
+      <End Role="InvoiceItem" EntitySet="InvoiceItem" />
+    </AssociationSet>
+    <AssociationSet Name="FK_InvoiceItem_InvoiceId_REF_Invoice" Association="Self.FK_InvoiceItem_InvoiceId_REF_Invoice">
+      <End Role="Invoice" EntitySet="Invoice" />
+      <End Role="InvoiceItem" EntitySet="InvoiceItem" />
+    </AssociationSet>
+    <AssociationSet Name="FK_InvoiceItem_UpdatedBy_REF_User" Association="Self.FK_InvoiceItem_UpdatedBy_REF_User">
+      <End Role="User" EntitySet="User" />
+      <End Role="InvoiceItem" EntitySet="InvoiceItem" />
+    </AssociationSet>
+    <AssociationSet Name="FK_User_CreatedBy_REF_User" Association="Self.FK_User_CreatedBy_REF_User">
+      <End Role="User" EntitySet="User" />
+      <End Role="User1" EntitySet="User" />
+    </AssociationSet>
+    <AssociationSet Name="FK_User_UpdatedBy_REF_User" Association="Self.FK_User_UpdatedBy_REF_User">
+      <End Role="User" EntitySet="User" />
+      <End Role="User1" EntitySet="User" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserLoginHistory_CreatedBy_REF_User" Association="Self.FK_UserLoginHistory_CreatedBy_REF_User">
+      <End Role="User" EntitySet="User" />
+      <End Role="UserLoginHistory" EntitySet="UserLoginHistory" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserLoginHistory_DbStatus_REF_DbStatus_lu" Association="Self.FK_UserLoginHistory_DbStatus_REF_DbStatus_lu">
+      <End Role="DbStatus_lu" EntitySet="DbStatus_lu" />
+      <End Role="UserLoginHistory" EntitySet="UserLoginHistory" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserLoginHistory_UpdatedBy_REF_User" Association="Self.FK_UserLoginHistory_UpdatedBy_REF_User">
+      <End Role="User" EntitySet="User" />
+      <End Role="UserLoginHistory" EntitySet="UserLoginHistory" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserLoginHistory_UserId_REF_User" Association="Self.FK_UserLoginHistory_UserId_REF_User">
+      <End Role="User" EntitySet="User" />
+      <End Role="UserLoginHistory" EntitySet="UserLoginHistory" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserTokenHistory_CreatedBy_REF_User" Association="Self.FK_UserTokenHistory_CreatedBy_REF_User">
+      <End Role="User" EntitySet="User" />
+      <End Role="UserTokenHistory" EntitySet="UserTokenHistory" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserTokenHistory_UpdatedBy_REF_User" Association="Self.FK_UserTokenHistory_UpdatedBy_REF_User">
+      <End Role="User" EntitySet="User" />
+      <End Role="UserTokenHistory" EntitySet="UserTokenHistory" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

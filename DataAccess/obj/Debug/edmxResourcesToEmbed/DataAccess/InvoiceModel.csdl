@@ -1,0 +1,409 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="MatusTestingAssignmentModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="MatusTestingAssignmentEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="DbStatus_lu" EntityType="MatusTestingAssignmentModel.DbStatus_lu" />
+    <EntitySet Name="Invoices" EntityType="MatusTestingAssignmentModel.Invoice" />
+    <EntitySet Name="Users" EntityType="MatusTestingAssignmentModel.User" />
+    <EntitySet Name="UserLoginHistories" EntityType="MatusTestingAssignmentModel.UserLoginHistory" />
+    <EntitySet Name="UserTokenHistories" EntityType="MatusTestingAssignmentModel.UserTokenHistory" />
+    <AssociationSet Name="FK_DbStatus_lu_CreatedBy_REF_User" Association="MatusTestingAssignmentModel.FK_DbStatus_lu_CreatedBy_REF_User">
+      <End Role="User" EntitySet="Users" />
+      <End Role="DbStatus_lu" EntitySet="DbStatus_lu" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DbStatus_lu_UpdatedBy_REF_User" Association="MatusTestingAssignmentModel.FK_DbStatus_lu_UpdatedBy_REF_User">
+      <End Role="User" EntitySet="Users" />
+      <End Role="DbStatus_lu" EntitySet="DbStatus_lu" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Invoice_DbStatus_REF_DbStatus_lu" Association="MatusTestingAssignmentModel.FK_Invoice_DbStatus_REF_DbStatus_lu">
+      <End Role="DbStatus_lu" EntitySet="DbStatus_lu" />
+      <End Role="Invoice" EntitySet="Invoices" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserLoginHistory_DbStatus_REF_DbStatus_lu" Association="MatusTestingAssignmentModel.FK_UserLoginHistory_DbStatus_REF_DbStatus_lu">
+      <End Role="DbStatus_lu" EntitySet="DbStatus_lu" />
+      <End Role="UserLoginHistory" EntitySet="UserLoginHistories" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Invoice_CreatedBy_REF_User" Association="MatusTestingAssignmentModel.FK_Invoice_CreatedBy_REF_User">
+      <End Role="User" EntitySet="Users" />
+      <End Role="Invoice" EntitySet="Invoices" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Invoice_UpdatedBy_REF_User" Association="MatusTestingAssignmentModel.FK_Invoice_UpdatedBy_REF_User">
+      <End Role="User" EntitySet="Users" />
+      <End Role="Invoice" EntitySet="Invoices" />
+    </AssociationSet>
+    <AssociationSet Name="FK_User_CreatedBy_REF_User" Association="MatusTestingAssignmentModel.FK_User_CreatedBy_REF_User">
+      <End Role="User" EntitySet="Users" />
+      <End Role="User1" EntitySet="Users" />
+    </AssociationSet>
+    <AssociationSet Name="FK_User_UpdatedBy_REF_User" Association="MatusTestingAssignmentModel.FK_User_UpdatedBy_REF_User">
+      <End Role="User" EntitySet="Users" />
+      <End Role="User1" EntitySet="Users" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserLoginHistory_CreatedBy_REF_User" Association="MatusTestingAssignmentModel.FK_UserLoginHistory_CreatedBy_REF_User">
+      <End Role="User" EntitySet="Users" />
+      <End Role="UserLoginHistory" EntitySet="UserLoginHistories" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserLoginHistory_UpdatedBy_REF_User" Association="MatusTestingAssignmentModel.FK_UserLoginHistory_UpdatedBy_REF_User">
+      <End Role="User" EntitySet="Users" />
+      <End Role="UserLoginHistory" EntitySet="UserLoginHistories" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserLoginHistory_UserId_REF_User" Association="MatusTestingAssignmentModel.FK_UserLoginHistory_UserId_REF_User">
+      <End Role="User" EntitySet="Users" />
+      <End Role="UserLoginHistory" EntitySet="UserLoginHistories" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserTokenHistory_CreatedBy_REF_User" Association="MatusTestingAssignmentModel.FK_UserTokenHistory_CreatedBy_REF_User">
+      <End Role="User" EntitySet="Users" />
+      <End Role="UserTokenHistory" EntitySet="UserTokenHistories" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserTokenHistory_UpdatedBy_REF_User" Association="MatusTestingAssignmentModel.FK_UserTokenHistory_UpdatedBy_REF_User">
+      <End Role="User" EntitySet="Users" />
+      <End Role="UserTokenHistory" EntitySet="UserTokenHistories" />
+    </AssociationSet>
+    <EntitySet Name="InvoiceItems" EntityType="MatusTestingAssignmentModel.InvoiceItem" />
+    <AssociationSet Name="FK_InvoiceItem_DbStatus_lu_REF_Invoice" Association="MatusTestingAssignmentModel.FK_InvoiceItem_DbStatus_lu_REF_Invoice">
+      <End Role="DbStatus_lu" EntitySet="DbStatus_lu" />
+      <End Role="InvoiceItem" EntitySet="InvoiceItems" />
+    </AssociationSet>
+    <AssociationSet Name="FK_InvoiceItem_InvoiceId_REF_Invoice" Association="MatusTestingAssignmentModel.FK_InvoiceItem_InvoiceId_REF_Invoice">
+      <End Role="Invoice" EntitySet="Invoices" />
+      <End Role="InvoiceItem" EntitySet="InvoiceItems" />
+    </AssociationSet>
+    <AssociationSet Name="FK_InvoiceItem_CreatedBy_REF_User" Association="MatusTestingAssignmentModel.FK_InvoiceItem_CreatedBy_REF_User">
+      <End Role="User" EntitySet="Users" />
+      <End Role="InvoiceItem" EntitySet="InvoiceItems" />
+    </AssociationSet>
+    <AssociationSet Name="FK_InvoiceItem_UpdatedBy_REF_User" Association="MatusTestingAssignmentModel.FK_InvoiceItem_UpdatedBy_REF_User">
+      <End Role="User" EntitySet="Users" />
+      <End Role="InvoiceItem" EntitySet="InvoiceItems" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="DbStatus_lu">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Description" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+    <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedBy" Type="Int32" />
+    <NavigationProperty Name="User" Relationship="MatusTestingAssignmentModel.FK_DbStatus_lu_CreatedBy_REF_User" FromRole="DbStatus_lu" ToRole="User" />
+    <NavigationProperty Name="User1" Relationship="MatusTestingAssignmentModel.FK_DbStatus_lu_UpdatedBy_REF_User" FromRole="DbStatus_lu" ToRole="User" />
+    <NavigationProperty Name="Invoices" Relationship="MatusTestingAssignmentModel.FK_Invoice_DbStatus_REF_DbStatus_lu" FromRole="DbStatus_lu" ToRole="Invoice" />
+    <NavigationProperty Name="UserLoginHistories" Relationship="MatusTestingAssignmentModel.FK_UserLoginHistory_DbStatus_REF_DbStatus_lu" FromRole="DbStatus_lu" ToRole="UserLoginHistory" />
+    <NavigationProperty Name="InvoiceItems" Relationship="MatusTestingAssignmentModel.FK_InvoiceItem_DbStatus_lu_REF_Invoice" FromRole="DbStatus_lu" ToRole="InvoiceItem" />
+  </EntityType>
+  <EntityType Name="Invoice">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Status" Type="Boolean" Nullable="false" />
+    <Property Name="TotalVAT" Type="Decimal" Precision="16" Scale="2" />
+    <Property Name="TotalPrice" Type="Decimal" Precision="16" Scale="2" />
+    <Property Name="CompanyName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="CompanyAddress" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="CompanyState" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="CompanyCountry" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ClientName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ClientAddress" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="ClientState" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ClientCountry" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="DbStatus" Type="Int32" Nullable="false" />
+    <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+    <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedBy" Type="Int32" />
+    <NavigationProperty Name="DbStatus_lu" Relationship="MatusTestingAssignmentModel.FK_Invoice_DbStatus_REF_DbStatus_lu" FromRole="Invoice" ToRole="DbStatus_lu" />
+    <NavigationProperty Name="User" Relationship="MatusTestingAssignmentModel.FK_Invoice_CreatedBy_REF_User" FromRole="Invoice" ToRole="User" />
+    <NavigationProperty Name="User1" Relationship="MatusTestingAssignmentModel.FK_Invoice_UpdatedBy_REF_User" FromRole="Invoice" ToRole="User" />
+    <NavigationProperty Name="InvoiceItems" Relationship="MatusTestingAssignmentModel.FK_InvoiceItem_InvoiceId_REF_Invoice" FromRole="Invoice" ToRole="InvoiceItem" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FirstName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="LastName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="PasswordHash" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Email" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="DbStatus" Type="Int32" Nullable="false" />
+    <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+    <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedBy" Type="Int32" />
+    <NavigationProperty Name="DbStatus_lu" Relationship="MatusTestingAssignmentModel.FK_DbStatus_lu_CreatedBy_REF_User" FromRole="User" ToRole="DbStatus_lu" />
+    <NavigationProperty Name="DbStatus_lu1" Relationship="MatusTestingAssignmentModel.FK_DbStatus_lu_UpdatedBy_REF_User" FromRole="User" ToRole="DbStatus_lu" />
+    <NavigationProperty Name="Invoices" Relationship="MatusTestingAssignmentModel.FK_Invoice_CreatedBy_REF_User" FromRole="User" ToRole="Invoice" />
+    <NavigationProperty Name="Invoices1" Relationship="MatusTestingAssignmentModel.FK_Invoice_UpdatedBy_REF_User" FromRole="User" ToRole="Invoice" />
+    <NavigationProperty Name="User1" Relationship="MatusTestingAssignmentModel.FK_User_CreatedBy_REF_User" FromRole="User" ToRole="User1" />
+    <NavigationProperty Name="User2" Relationship="MatusTestingAssignmentModel.FK_User_CreatedBy_REF_User" FromRole="User1" ToRole="User" />
+    <NavigationProperty Name="User11" Relationship="MatusTestingAssignmentModel.FK_User_UpdatedBy_REF_User" FromRole="User" ToRole="User1" />
+    <NavigationProperty Name="User3" Relationship="MatusTestingAssignmentModel.FK_User_UpdatedBy_REF_User" FromRole="User1" ToRole="User" />
+    <NavigationProperty Name="UserLoginHistories" Relationship="MatusTestingAssignmentModel.FK_UserLoginHistory_CreatedBy_REF_User" FromRole="User" ToRole="UserLoginHistory" />
+    <NavigationProperty Name="UserLoginHistories1" Relationship="MatusTestingAssignmentModel.FK_UserLoginHistory_UpdatedBy_REF_User" FromRole="User" ToRole="UserLoginHistory" />
+    <NavigationProperty Name="UserLoginHistories2" Relationship="MatusTestingAssignmentModel.FK_UserLoginHistory_UserId_REF_User" FromRole="User" ToRole="UserLoginHistory" />
+    <NavigationProperty Name="UserTokenHistories" Relationship="MatusTestingAssignmentModel.FK_UserTokenHistory_CreatedBy_REF_User" FromRole="User" ToRole="UserTokenHistory" />
+    <NavigationProperty Name="UserTokenHistories1" Relationship="MatusTestingAssignmentModel.FK_UserTokenHistory_UpdatedBy_REF_User" FromRole="User" ToRole="UserTokenHistory" />
+    <NavigationProperty Name="InvoiceItems" Relationship="MatusTestingAssignmentModel.FK_InvoiceItem_CreatedBy_REF_User" FromRole="User" ToRole="InvoiceItem" />
+    <NavigationProperty Name="InvoiceItems1" Relationship="MatusTestingAssignmentModel.FK_InvoiceItem_UpdatedBy_REF_User" FromRole="User" ToRole="InvoiceItem" />
+  </EntityType>
+  <EntityType Name="UserLoginHistory">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserId" Type="Int32" Nullable="false" />
+    <Property Name="LastLogin" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="DbStatus" Type="Int32" Nullable="false" />
+    <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+    <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedBy" Type="Int32" />
+    <NavigationProperty Name="DbStatus_lu" Relationship="MatusTestingAssignmentModel.FK_UserLoginHistory_DbStatus_REF_DbStatus_lu" FromRole="UserLoginHistory" ToRole="DbStatus_lu" />
+    <NavigationProperty Name="User" Relationship="MatusTestingAssignmentModel.FK_UserLoginHistory_CreatedBy_REF_User" FromRole="UserLoginHistory" ToRole="User" />
+    <NavigationProperty Name="User1" Relationship="MatusTestingAssignmentModel.FK_UserLoginHistory_UpdatedBy_REF_User" FromRole="UserLoginHistory" ToRole="User" />
+    <NavigationProperty Name="User2" Relationship="MatusTestingAssignmentModel.FK_UserLoginHistory_UserId_REF_User" FromRole="UserLoginHistory" ToRole="User" />
+  </EntityType>
+  <EntityType Name="UserTokenHistory">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserId" Type="Int32" Nullable="false" />
+    <Property Name="Token" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="IsActive" Type="Boolean" Nullable="false" />
+    <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+    <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedBy" Type="Int32" />
+    <NavigationProperty Name="User" Relationship="MatusTestingAssignmentModel.FK_UserTokenHistory_CreatedBy_REF_User" FromRole="UserTokenHistory" ToRole="User" />
+    <NavigationProperty Name="User1" Relationship="MatusTestingAssignmentModel.FK_UserTokenHistory_UpdatedBy_REF_User" FromRole="UserTokenHistory" ToRole="User" />
+  </EntityType>
+  <Association Name="FK_DbStatus_lu_CreatedBy_REF_User">
+    <End Type="MatusTestingAssignmentModel.User" Role="User" Multiplicity="1" />
+    <End Type="MatusTestingAssignmentModel.DbStatus_lu" Role="DbStatus_lu" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="DbStatus_lu">
+        <PropertyRef Name="CreatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DbStatus_lu_UpdatedBy_REF_User">
+    <End Type="MatusTestingAssignmentModel.User" Role="User" Multiplicity="0..1" />
+    <End Type="MatusTestingAssignmentModel.DbStatus_lu" Role="DbStatus_lu" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="DbStatus_lu">
+        <PropertyRef Name="UpdatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Invoice_DbStatus_REF_DbStatus_lu">
+    <End Type="MatusTestingAssignmentModel.DbStatus_lu" Role="DbStatus_lu" Multiplicity="1" />
+    <End Type="MatusTestingAssignmentModel.Invoice" Role="Invoice" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DbStatus_lu">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Invoice">
+        <PropertyRef Name="DbStatus" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserLoginHistory_DbStatus_REF_DbStatus_lu">
+    <End Type="MatusTestingAssignmentModel.DbStatus_lu" Role="DbStatus_lu" Multiplicity="1" />
+    <End Type="MatusTestingAssignmentModel.UserLoginHistory" Role="UserLoginHistory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DbStatus_lu">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="UserLoginHistory">
+        <PropertyRef Name="DbStatus" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Invoice_CreatedBy_REF_User">
+    <End Type="MatusTestingAssignmentModel.User" Role="User" Multiplicity="1" />
+    <End Type="MatusTestingAssignmentModel.Invoice" Role="Invoice" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Invoice">
+        <PropertyRef Name="CreatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Invoice_UpdatedBy_REF_User">
+    <End Type="MatusTestingAssignmentModel.User" Role="User" Multiplicity="0..1" />
+    <End Type="MatusTestingAssignmentModel.Invoice" Role="Invoice" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Invoice">
+        <PropertyRef Name="UpdatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_User_CreatedBy_REF_User">
+    <End Type="MatusTestingAssignmentModel.User" Role="User" Multiplicity="1" />
+    <End Type="MatusTestingAssignmentModel.User" Role="User1" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="User1">
+        <PropertyRef Name="CreatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_User_UpdatedBy_REF_User">
+    <End Type="MatusTestingAssignmentModel.User" Role="User" Multiplicity="0..1" />
+    <End Type="MatusTestingAssignmentModel.User" Role="User1" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="User1">
+        <PropertyRef Name="UpdatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserLoginHistory_CreatedBy_REF_User">
+    <End Type="MatusTestingAssignmentModel.User" Role="User" Multiplicity="1" />
+    <End Type="MatusTestingAssignmentModel.UserLoginHistory" Role="UserLoginHistory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="UserLoginHistory">
+        <PropertyRef Name="CreatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserLoginHistory_UpdatedBy_REF_User">
+    <End Type="MatusTestingAssignmentModel.User" Role="User" Multiplicity="0..1" />
+    <End Type="MatusTestingAssignmentModel.UserLoginHistory" Role="UserLoginHistory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="UserLoginHistory">
+        <PropertyRef Name="UpdatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserLoginHistory_UserId_REF_User">
+    <End Type="MatusTestingAssignmentModel.User" Role="User" Multiplicity="1" />
+    <End Type="MatusTestingAssignmentModel.UserLoginHistory" Role="UserLoginHistory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="UserLoginHistory">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserTokenHistory_CreatedBy_REF_User">
+    <End Type="MatusTestingAssignmentModel.User" Role="User" Multiplicity="1" />
+    <End Type="MatusTestingAssignmentModel.UserTokenHistory" Role="UserTokenHistory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="UserTokenHistory">
+        <PropertyRef Name="CreatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserTokenHistory_UpdatedBy_REF_User">
+    <End Type="MatusTestingAssignmentModel.User" Role="User" Multiplicity="0..1" />
+    <End Type="MatusTestingAssignmentModel.UserTokenHistory" Role="UserTokenHistory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="UserTokenHistory">
+        <PropertyRef Name="UpdatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="InvoiceItem">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="InvoiceId" Type="Int32" Nullable="false" />
+    <Property Name="Description" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Quantity" Type="Int32" Nullable="false" />
+    <Property Name="UnitPrice" Type="Decimal" Nullable="false" Precision="16" Scale="2" />
+    <Property Name="PercentageVAT" Type="Int32" Nullable="false" />
+    <Property Name="AmountVAT" Type="Decimal" Nullable="false" Precision="16" Scale="2" />
+    <Property Name="TotalPrice" Type="Decimal" Precision="16" Scale="2" />
+    <Property Name="DbStatus" Type="Int32" Nullable="false" />
+    <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+    <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedBy" Type="Int32" />
+    <NavigationProperty Name="DbStatus_lu" Relationship="MatusTestingAssignmentModel.FK_InvoiceItem_DbStatus_lu_REF_Invoice" FromRole="InvoiceItem" ToRole="DbStatus_lu" />
+    <NavigationProperty Name="Invoice" Relationship="MatusTestingAssignmentModel.FK_InvoiceItem_InvoiceId_REF_Invoice" FromRole="InvoiceItem" ToRole="Invoice" />
+    <NavigationProperty Name="User" Relationship="MatusTestingAssignmentModel.FK_InvoiceItem_CreatedBy_REF_User" FromRole="InvoiceItem" ToRole="User" />
+    <NavigationProperty Name="User1" Relationship="MatusTestingAssignmentModel.FK_InvoiceItem_UpdatedBy_REF_User" FromRole="InvoiceItem" ToRole="User" />
+  </EntityType>
+  <Association Name="FK_InvoiceItem_DbStatus_lu_REF_Invoice">
+    <End Type="MatusTestingAssignmentModel.DbStatus_lu" Role="DbStatus_lu" Multiplicity="1" />
+    <End Type="MatusTestingAssignmentModel.InvoiceItem" Role="InvoiceItem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DbStatus_lu">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="InvoiceItem">
+        <PropertyRef Name="DbStatus" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_InvoiceItem_InvoiceId_REF_Invoice">
+    <End Type="MatusTestingAssignmentModel.Invoice" Role="Invoice" Multiplicity="1" />
+    <End Type="MatusTestingAssignmentModel.InvoiceItem" Role="InvoiceItem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Invoice">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="InvoiceItem">
+        <PropertyRef Name="InvoiceId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_InvoiceItem_CreatedBy_REF_User">
+    <End Type="MatusTestingAssignmentModel.User" Role="User" Multiplicity="1" />
+    <End Type="MatusTestingAssignmentModel.InvoiceItem" Role="InvoiceItem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="InvoiceItem">
+        <PropertyRef Name="CreatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_InvoiceItem_UpdatedBy_REF_User">
+    <End Type="MatusTestingAssignmentModel.User" Role="User" Multiplicity="0..1" />
+    <End Type="MatusTestingAssignmentModel.InvoiceItem" Role="InvoiceItem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="InvoiceItem">
+        <PropertyRef Name="UpdatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

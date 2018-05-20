@@ -1,0 +1,98 @@
+﻿@using BusinessLogic
+@model InvoiceDto
+
+@{int rowNo = 1;}
+
+@if (Model.Items != null && Model.Items.Count > 0)
+{
+    <table class="table">
+        <tr class="header">
+            <th>
+                #
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Items.First().Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Items.First().Quantity)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Items.First().UnitPrice)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Items.First().PercentageVAT)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Items.First().AmountVAT)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Items.First().TotalPrice)
+            </th>
+            <th>
+                Created by
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreatedDate)
+            </th>
+            <th>
+                Updated by
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UpdatedDate)
+            </th>
+            <th>
+
+            </th>
+        </tr>
+        @foreach (var item in Model.Items)
+        {
+            <tr>
+                <td>
+                    @(rowNo++)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Quantity)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UnitPrice)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PercentageVAT)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AmountVAT)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TotalPrice)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CreatedBy.FullName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CreatedDate)
+                </td>
+                <td>
+                    @(item.UpdatedBy != null ? item.UpdatedBy.FullName : "n.a")
+                </td>
+                <td>
+                    @(item.UpdatedDate != null ? item.UpdatedDate.ToString() : "n.a")
+                </td>
+                <td>
+                    <a href="@Url.Action("Delete", "InvoiceItem", new { id = item.Id })" class="btn btn-link btn-lg">
+                        <span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span>
+                    </a>
+                </td>
+            </tr>
+        }
+
+    </table>
+}
+    <p>
+        <a href="@Url.Action("Create", "InvoiceItem", new { invoiceId = Model.Id })" class="btn btn-link btn-lg">
+            <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
+            New Item
+        </a>
+    </p>
