@@ -1,7 +1,9 @@
 ﻿using DataAccess.DataAccess;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Web.Http.OData;
 
 namespace DataAccess
 {
@@ -22,14 +24,21 @@ namespace DataAccess
             }
         }
 
-        public static IEnumerable<Invoice> GetList(int userId)
+        public static IEnumerable<Invoice> GetList(int userId, bool? isPaid = null)
         {
             using (var context = new MatusTestingAssignmentEntities())
             {
-                return context.Invoices.
+                var query = context.Invoices.
                     Include(i => i.User).
                     Include(i => i.User1).
-                    Where(i => i.DbStatus == 1 && i.CreatedBy == userId).ToList();
+                    Where(i => i.DbStatus == 1 && i.CreatedBy == userId);
+
+                // get paid/unpaid invoices
+                if (isPaid.HasValue)
+                {
+                    query = query.Where(i => i.Status == isPaid.Value);
+                }
+                return query.ToList();
             }
         }
         #endregion GET_METHODS
@@ -57,6 +66,28 @@ namespace DataAccess
                 current.ClientAddress = updateInvoice.ClientAddress;
                 current.ClientState = updateInvoice.ClientState;
                 current.ClientCountry = updateInvoice.ClientCountry;
+                current.Status = updateInvoice.Status;
+                current.UpdatedDate = updateInvoice.UpdatedDate;
+                current.UpdatedBy = updateInvoice.UpdatedBy;
+                context.SaveChanges();
+            }
+        }
+
+        public static void PatchUpdate(int id, Delta<Invoice> patchUpdate)
+        {
+            using (var context = new MatusTestingAssignmentEntities())
+            {
+                var current = context.Invoices.Find(id);
+                patchUpdate.Patch(current);
+                context.SaveChanges();
+            }
+        }
+
+        public static void SetStatus(Invoice updateInvoice)
+        {
+            using (var context = new MatusTestingAssignmentEntities())
+            {
+                var current = context.Invoices.Find(updateInvoice.Id);
                 current.Status = updateInvoice.Status;
                 current.UpdatedDate = updateInvoice.UpdatedDate;
                 current.UpdatedBy = updateInvoice.UpdatedBy;

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using System.Web.Http.OData;
 
 namespace BusinessLogic
 {
@@ -14,11 +15,11 @@ namespace BusinessLogic
         public Enums.eDbStatus DbStatus { get; set; }
         public List<InvoiceItemDto> Items { get; set; }
         [Display(Name = "Paid")]
-        public bool Status { get; set; }
+        public bool? Status { get; set; }
         [Display(Name = "Total Price")]
-        public double TotalPrice { get; set; }
+        public double? TotalPrice { get; set; }
         [Display(Name = "Total VAT [€]")]
-        public double TotalVAT { get; set; }
+        public double? TotalVAT { get; set; }
         [Display(Name = "Company Name")]
         public string CompanyName { get; set; }
         [Display(Name = "Company Address")]
@@ -58,10 +59,10 @@ namespace BusinessLogic
             {
                 Items = entity.InvoiceItems.Where(i => i.DbStatus == (int)Enums.eDbStatus.Active).Select(i => new InvoiceItemDto(i)).ToList();
             }
-            Status = entity.Status;
+            Status = entity?.Status;
             DbStatus = (Enums.eDbStatus)entity.DbStatus;
-            TotalPrice = (double)entity.TotalPrice;
-            TotalVAT = (double)entity.TotalVAT;
+            TotalPrice = (double)entity?.TotalPrice;
+            TotalVAT = (double)entity?.TotalVAT;
             CompanyName = entity.CompanyName;
             CompanyAddress = entity.CompanyAddress;
             CompanyState = entity.CompanyState;
@@ -83,10 +84,10 @@ namespace BusinessLogic
         {
             var entity = new Invoice();
             entity.Id = Id;
-            entity.Status = Status;
+            entity.Status = Status ?? false;
             entity.DbStatus = (int)DbStatus;
-            entity.TotalPrice = (decimal)TotalPrice;
-            entity.TotalVAT = (decimal)TotalVAT;
+            entity.TotalPrice = (decimal?)TotalPrice;
+            entity.TotalVAT = (decimal?)TotalVAT;
             entity.CompanyName = CompanyName;
             entity.CompanyAddress = CompanyAddress;
             entity.CompanyState = CompanyState;
@@ -99,6 +100,53 @@ namespace BusinessLogic
             entity.CreatedDate = CreatedDate;
             entity.UpdatedBy = UpdatedBy?.Id;
             entity.UpdatedDate = UpdatedDate;
+            return entity;
+        }
+
+        public Delta<Invoice> ToPatchEntity(int userId)
+        {
+            var entity = new Delta<Invoice>();
+            // company
+            if (this.Status.HasValue)
+            {
+                entity.TrySetPropertyValue(nameof(this.Status), this.Status);
+            }
+            if (this.CompanyName != null && this.CompanyName != string.Empty)
+            {
+                entity.TrySetPropertyValue(nameof(this.CompanyName), this.CompanyName);
+            }
+            if (this.CompanyAddress != null && this.CompanyAddress != string.Empty)
+            {
+                entity.TrySetPropertyValue(nameof(this.CompanyAddress), this.CompanyAddress);
+            }
+            if (this.CompanyState != null && this.CompanyState != string.Empty)
+            {
+                entity.TrySetPropertyValue(nameof(this.CompanyState), this.CompanyState);
+            }
+            if (this.CompanyCountry != null && this.CompanyCountry != string.Empty)
+            {
+                entity.TrySetPropertyValue(nameof(this.CompanyCountry), this.CompanyCountry);
+            }
+            // client 
+            if (this.ClientName != null && this.ClientName != string.Empty)
+            {
+                entity.TrySetPropertyValue(nameof(this.ClientName), this.ClientName);
+            }
+            if (this.ClientAddress != null && this.ClientAddress != string.Empty)
+            {
+                entity.TrySetPropertyValue(nameof(this.ClientAddress), this.ClientAddress);
+            }
+            if (this.ClientState != null && this.ClientState != string.Empty)
+            {
+                entity.TrySetPropertyValue(nameof(this.ClientState), this.ClientState);
+            }
+            if (this.ClientCountry != null && this.ClientCountry != string.Empty)
+            {
+                entity.TrySetPropertyValue(nameof(this.ClientCountry), this.ClientCountry);
+            }
+            // updated date/by
+            entity.TrySetPropertyValue(nameof(this.UpdatedBy), userId);
+            entity.TrySetPropertyValue(nameof(this.UpdatedDate), DateTime.Now);
             return entity;
         }
     }
